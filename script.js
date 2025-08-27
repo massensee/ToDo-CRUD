@@ -1,10 +1,19 @@
-const btn = document.querySelector("button");
 const form = document.getElementById("task-form");
+const message = document.getElementById("message");
+const input = document.getElementById("task-input");
+const list = document.getElementById("task-list");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  const inputValue = input.value.trim();
 
-  const textInput = document.getElementById("task-input").value;
+  if (!inputValue) {
+    message.textContent = "Veuillez entrer une tâche !";
+    message.classList.add("error");
+    input.focus();
+    return;
+  }
 
-  console.log(textInput);
+  message.textContent = "";
+  message.classList.remove("error");
 });
