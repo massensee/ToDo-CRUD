@@ -16,4 +16,29 @@ form.addEventListener("submit", (e) => {
 
   message.textContent = "";
   message.classList.remove("error");
+
+  const task = createTask(inputValue);
+  list.appendChild(task);
 });
+
+function createTask(inputValue) {
+  const btnModifier = document.createElement("button");
+  btnModifier.textContent = `✏️`;
+
+  const btnSupprimer = document.createElement("button");
+  btnSupprimer.textContent = `❌`;
+
+  const actions = document.createElement("div");
+  actions.classList.add("task-actions");
+
+  const task = document.createElement("li");
+  const taskText = document.createElement("span");
+  task.textContent = inputValue;
+
+  task.appendChild(taskText);
+  task.appendChild(actions);
+  actions.appendChild(btnModifier);
+  actions.appendChild(btnSupprimer);
+
+  return task;
+}
