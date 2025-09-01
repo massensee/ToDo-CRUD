@@ -22,18 +22,21 @@ form.addEventListener("submit", (e) => {
 });
 
 function createTask(inputValue) {
-  const btnModifier = document.createElement("button");
-  btnModifier.textContent = `✏️`;
+  const btnModifier = createButton("✏️", null, null, "Modifier la tâche");
 
-  const btnSupprimer = document.createElement("button");
-  btnSupprimer.textContent = `❌`;
+  const btnSupprimer = createButton(
+    "❌",
+    "btn-delete",
+    deleteTask,
+    "Supprimer la tâche"
+  );
 
   const actions = document.createElement("div");
   actions.classList.add("task-actions");
 
   const task = document.createElement("li");
   const taskText = document.createElement("span");
-  task.textContent = inputValue;
+  taskText.textContent = inputValue;
 
   task.appendChild(taskText);
   task.appendChild(actions);
@@ -41,4 +44,19 @@ function createTask(inputValue) {
   actions.appendChild(btnSupprimer);
 
   return task;
+}
+
+function createButton(text, className, onClick, label) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = text;
+  if (label) btn.setAttribute("aria-label", label);
+  if (className) btn.classList.add(className);
+  if (onClick) btn.addEventListener("click", onClick);
+  return btn;
+}
+
+function deleteTask(e) {
+  const task = e.target.closest("li");
+  task.remove();
 }
