@@ -3,6 +3,19 @@ const message = document.getElementById("message");
 const input = document.getElementById("task-input");
 const list = document.getElementById("task-list");
 
+let tasks = [];
+
+function saveTasks(tasksArray) {
+  localStorage.setItem("tasks", JSON.stringify(tasksArray));
+}
+
+function loadTasks() {
+  const stockTask = localStorage.getItem("tasks");
+  const taskFromStorage = JSON.parse(stockTask);
+  tasks = taskFromStorage;
+  console.log(tasks);
+}
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputValue = input.value.trim();
@@ -19,6 +32,9 @@ form.addEventListener("submit", (e) => {
 
   const task = createTask(inputValue);
   list.appendChild(task);
+
+  tasks.push(inputValue);
+  saveTasks(tasks);
 });
 
 function createTask(inputValue) {
